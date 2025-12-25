@@ -1,1 +1,1 @@
-# edge_test
+<img width="766" height="575" alt="Screenshot 2025-12-25 124023" src="https://github.com/user-attachments/assets/bbfe685b-4659-4c87-842b-6f36e88bd97b" />This is the readme for ZEUS edge computing solution 
