@@ -38,48 +38,8 @@ Whether you are managing a single edge server or a distributed cluster, ZEUS pro
 | **Terminal** | Node.js (Wetty) / SSH | Remote Access |
 ## Architecture
 The following diagram illustrates the high-level architecture of a ZEUS node:
-```mermaid
-graph TD
-    classDef user fill:#FFD700,stroke:#333,stroke-width:2px,color:black;
-    classDef web fill:#ADD8E6,stroke:#333,stroke-width:2px,color:black;
-    classDef app fill:#90EE90,stroke:#333,stroke-width:2px,color:black;
-    classDef core fill:#FFA07A,stroke:#333,stroke-width:2px,color:black;
-    classDef infra fill:#D3D3D3,stroke:#333,stroke-width:2px,color:black;
+<img width="1204" height="666" alt="Screenshot 2025-12-26 181647" src="https://github.com/user-attachments/assets/e1ec8056-fbea-4703-97e1-1ff0d2a3ffab" />
 
-    User((User)):::user
-    Browser[Web Browser]:::web
-
-    subgraph "ZEUS Node (Ubuntu 24.04)"
-        Nginx[Nginx Reverse Proxy]:::web
-
-        subgraph "Application Layer"
-            Wok[Wok Server]:::app
-            Wetty[Wetty Terminal]:::app
-            Performa[Performa Satellite]:::app
-        end
-
-        subgraph "Core Services"
-            Libvirt[Libvirt]:::core
-            Pacemaker[Pacemaker]:::core
-            Corosync[Corosync]:::core
-            SSH[OpenSSH]:::core
-        end
-
-        subgraph "Infrastructure"
-            KVM[KVM Hypervisor]:::infra
-            HW[System Hardware]:::infra
-        end
-    end
-
-    User --> Browser --> Nginx
-    Nginx --> Wok
-    Nginx --> Wetty
-    Wok --> Libvirt --> KVM
-    Wetty --> SSH
-    Performa --> HW
-    Pacemaker --> Corosync
-
-```
 ## Comparisons: ZEUS vs. Traditional Edge setups
 | Feature | ZEUS Edge Solution | Traditional Manual Setup |
 | :--- | :--- | :--- |
