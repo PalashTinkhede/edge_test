@@ -47,9 +47,9 @@ graph TD
         Nginx[Nginx Reverse Proxy]
         
         subgraph "Application Layer"
-            Wok[Wok Server (Python)]
-            Wetty[Wetty Terminal (Node.js)]
-            Performa[Performa Satellite (Node.js)]
+            Wok["Wok Server (Python)"]
+            Wetty["Wetty Terminal (Node.js)"]
+            Performa["Performa Satellite (Node.js)"]
         end
         
         subgraph "Core Services"
@@ -77,6 +77,7 @@ graph TD
     Pacemaker --> Corosync
     Corosync --> System
 ```
+
 ## Comparisons: ZEUS vs. Traditional Edge setups
 | Feature | ZEUS Edge Solution | Traditional Manual Setup |
 | :--- | :--- | :--- |
