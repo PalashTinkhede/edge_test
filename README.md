@@ -1,5 +1,121 @@
- RELESE 2.0 ZEUS
-
-<img width="229" height="172" alt="Screenshot 2025-12-25 124023" src="https://github.com/user-attachments/assets/57de8f0f-6b79-4c0d-a6d2-2304333ca930" />
- 
-This is the readme for ZEUS edge computing solution 
+# ZEUS Edge Solution
+![ZEUS Logo](https://via.placeholder.com/150?text=ZEUS "ZEUS Logo")
+## Description
+**ZEUS** is a comprehensive, all-in-one edge computing and infrastructure management solution. Designed for reliability and ease of use, ZEUS integrates high-performance virtualization, robust high-availability clustering, and real-time monitoring into a single, cohesive platform. It transforms standard hardware into a powerful edge node capable of running critical workloads with enterprise-grade resilience.
+Whether you are managing a single edge server or a distributed cluster, ZEUS provides the tools you need to deploy, monitor, and maintain your infrastructure efficiently.
+## Features
+### 🖥️ Virtualization Management (Kimchi/Wok)
+*   **Web-Based Administration**: Manage KVM guests directly from your browser using an HTML5 interface.
+*   **Resource Control**: Create, start, stop, and migrate virtual machines with ease.
+*   **Storage & Network**: Configure storage pools and network bridges effortlessly.
+*   **Custom UI**: Enhanced user experience with a polished, modern interface.
+### ⚡ High Availability Clustering (ClusterLabs)
+*   **Pacemaker & Corosync**: Industry-standard clustering stack for maximum uptime.
+*   **Automated Failover**: Ensure your critical services remain available even if a node fails.
+*   **PCS Integration**: Simplified cluster configuration using the Pacemaker Configuration System.
+### 📊 Real-Time Monitoring (Performa)
+*   **Granular Metrics**: Track CPU, memory, I/O, and network usage in real-time.
+*   **Web Dashboard**: Visualize performance data through interactive charts and graphs.
+*   **Satellite Agent**: Lightweight node agent (`performa-satellite`) efficient data collection.
+### ⌨️ Web Terminal (Wetty)
+*   **Access Anywhere**: Full terminal access to your host via HTTP/HTTPS.
+*   **Secure**: Operates over SSH for secure remote management without needing a dedicated SSH client.
+## Advantages
+*   **Unified Platform**: No need to stitch together disparate tools; ZEUS brings them all together.
+*   **Edge-Ready**: Optimized for Ubuntu 24.04 LTS, ensuring compatibility with modern hardware standard in edge deployments.
+*   **Open Source Foundation**: Built on battle-tested open-source technologies (KVM, Libvirt, Linux).
+*   **Lightweight**: Designed to run efficiently on edge hardware with limited resources.
+## Core Technology Stack
+| Component | Technology | Role |
+| :--- | :--- | :--- |
+| **OS** | Ubuntu 24.04 LTS | Base Operating System |
+| **Virtualization** | KVM / Libvirt | Hypervisor & API |
+| **Management UI** | Wok (Python/CherryPy) | Web Server & Plugin Framework |
+| **Frontend** | HTML5 / JavaScript | User Interface |
+| **Clustering** | Pacemaker / Corosync | High Availability |
+| **Monitoring** | Node.js (Performa) | Metrics Collection & Visualization |
+| **Terminal** | Node.js (Wetty) / SSH | Remote Access |
+## Architecture
+The following diagram illustrates the high-level architecture of a ZEUS node:
+```mermaid
+graph TD
+    User((User))
+    Browser[Web Browser]
+    
+    subgraph "ZEUS Node (Ubuntu 24.04)"
+        Nginx[Nginx Reverse Proxy]
+        
+        subgraph "Application Layer"
+            Wok[Wok Server (Python)]
+            Wetty[Wetty Terminal (Node.js)]
+            Performa[Performa Satellite (Node.js)]
+        end
+        
+        subgraph "Core Services"
+            Libvirt[Libvirt Daemon]
+            Pacemaker[Pacemaker HA]
+            Corosync[Corosync Cluster Engine]
+            SSH[OpenSSH Server]
+        end
+        
+        subgraph "Infrastructure"
+            KVM[KVM Hypervisor]
+            System[System Hardware]
+        end
+    end
+    User --> Browser
+    Browser -- "HTTP/WebSocket (8001/3000)" --> Nginx
+    Nginx --> Wok
+    Nginx --> Wetty
+    
+    Wok -- "Manage" --> Libvirt
+    Wetty -- "Connect" --> SSH
+    Performa -- "Monitor" --> System
+    
+    Libvirt --> KVM
+    Pacemaker --> Corosync
+    Corosync --> System
+```
+## Comparisons: ZEUS vs. Traditional Edge setups
+| Feature | ZEUS Edge Solution | Traditional Manual Setup |
+| :--- | :--- | :--- |
+| **Setup Time** | Minutes (Automated Scripts) | Hours/Days |
+| **UI Experience** | Unified Web Dashboard | Multiple CLI/Web Interfaces |
+| **Monitoring** | Integrated Real-time | External Tools Required |
+| **Clustering** | Pre-configured HA Stack | Manual Configuration Complex |
+| **Maintenance** | Single Package Management | Dependency Helper needed |
+## Installation Guide
+### Prerequisites
+*   **OS**: Ubuntu 24.04 LTS (Fresh Install recommended)
+*   **User**: Root privileges (sudo)
+*   **Hardware**: Virtualization-enabled CPU (VT-x or AMD-V)
+### Steps
+1.  **Clone the Repository**
+    ```bash
+    git clone https://github.com/your-repo/zeus.git
+    cd zeus/ZEUS
+    ```
+2.  **Run the Installer**
+    The main installer orchestrates the setup of Wok, Kimchi, and Cluster components.
+    ```bash
+    sudo ./install.sh
+    ```
+3.  **Access the Dashboard**
+    *   **URL**: `https://<YOUR-NODE-IP>:8001`
+    *   **Login**: Use your system root or user credentials.
+4.  **Additional Setup (Optional)**
+    *   **Monitoring**: Ensure `performa-satellite` is running (managed via cron/systemd).
+    *   **Terminal**: Access Wetty at `http://<YOUR-NODE-IP>:3000` (default port).
+## Documentation
+For more detailed documentation, please visit our [Wiki](https://github.com/your-repo/zeus/wiki) or check the `/docs` folder involved in this repository.
+*   [Wok Documentation](https://github.com/kimchi-project/wok)
+*   [Kimchi Documentation](https://github.com/kimchi-project/kimchi)
+*   [ClusterLabs Info](https://clusterlabs.org/)
+## Summary
+ZEUS represents a leap forward for accessible edge infrastructure. By combining the power of KVM virtualization with the resilience of Pacemaker clustering and the visibility of Performa monitoring, it empowers administrators to deploy and maintain robust systems with minimal friction.
+## Rights & License
+This project is licensed under the **MIT License**.
+*   **Wok/Kimchi**: LGPL v2.1 (Apache 2.0 for some components)
+*   **Performa**: MIT License
+*   **Wetty**: MIT License
+All third-party components (Libvirt, QEMU, etc.) retain their respective licenses.
