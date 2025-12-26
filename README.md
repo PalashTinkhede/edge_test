@@ -1,5 +1,5 @@
 # ZEUS Edge Solution
-![ZEUS Logo](https://via.placeholder.com/150?text=ZEUS "ZEUS Logo")
+![login_bg](https://github.com/user-attachments/assets/889d11bc-a315-402d-9757-2da069cd941f)
 ## Description
 **ZEUS** is a comprehensive, all-in-one edge computing and infrastructure management solution. Designed for reliability and ease of use, ZEUS integrates high-performance virtualization, robust high-availability clustering, and real-time monitoring into a single, cohesive platform. It transforms standard hardware into a powerful edge node capable of running critical workloads with enterprise-grade resilience.
 Whether you are managing a single edge server or a distributed cluster, ZEUS provides the tools you need to deploy, monitor, and maintain your infrastructure efficiently.
