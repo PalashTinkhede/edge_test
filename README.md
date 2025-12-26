@@ -1,4 +1,4 @@
-ZEUS Edge Solution
+#ZEUS Edge Solution
 <img width="229" height="172" alt="Screenshot 2025-12-25 124023" src="https://github.com/user-attachments/assets/63531aca-e261-4475-b2dd-55aa25fc465e" />
 
 ## Description
