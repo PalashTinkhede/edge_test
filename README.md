@@ -40,44 +40,49 @@ Whether you are managing a single edge server or a distributed cluster, ZEUS pro
 The following diagram illustrates the high-level architecture of a ZEUS node:
 ```mermaid
 graph TD
-    User((User))
-    Browser[Web Browser]
+    %% Classes for coloring
+    classDef user fill:#FFD700,stroke:#333,stroke-width:2px,color:black;
+    classDef web fill:#ADD8E6,stroke:#333,stroke-width:2px,color:black;
+    classDef app fill:#90EE90,stroke:#333,stroke-width:2px,color:black;
+    classDef core fill:#FFA07A,stroke:#333,stroke-width:2px,color:black;
+    classDef infra fill:#D3D3D3,stroke:#333,stroke-width:2px,color:black;
+    User((👤 User)):::user
+    Browser[🌐 Web Browser]:::web
     
-    subgraph "ZEUS Node (Ubuntu 24.04)"
-        Nginx[Nginx Reverse Proxy]
+    subgraph "ZEUS Node 🐧 (Ubuntu 24.04)"
+        Nginx[🛡️ Nginx Reverse Proxy]:::web
         
         subgraph "Application Layer"
-            Wok["Wok Server (Python)"]
-            Wetty["Wetty Terminal (Node.js)"]
-            Performa["Performa Satellite (Node.js)"]
+            Wok["🍳 Wok Server (Python)"]:::app
+            Wetty["💻 Wetty Terminal (Node.js)"]:::app
+            Performa["📊 Performa Satellite (Node.js)"]:::app
         end
         
         subgraph "Core Services"
-            Libvirt[Libvirt Daemon]
-            Pacemaker[Pacemaker HA]
-            Corosync[Corosync Cluster Engine]
-            SSH[OpenSSH Server]
+            Libvirt["⚙️ Libvirt Daemon"]:::core
+            Pacemaker["💓 Pacemaker HA"]:::core
+            Corosync["🔄 Corosync Engine"]:::core
+            SSH["🔐 OpenSSH Server"]:::core
         end
         
         subgraph "Infrastructure"
-            KVM[KVM Hypervisor]
-            System[System Hardware]
+            KVM["📦 KVM Hypervisor"]:::infra
+            System["🖥️ System Hardware"]:::infra
         end
     end
-    User --> Browser
-    Browser -- "HTTP/WebSocket (8001/3000)" --> Nginx
-    Nginx --> Wok
-    Nginx --> Wetty
+    User ==> Browser
+    Browser == "HTTP/WebSocket\n(8001/3000)" ==> Nginx
+    Nginx -.-> Wok
+    Nginx -.-> Wetty
     
     Wok -- "Manage" --> Libvirt
     Wetty -- "Connect" --> SSH
     Performa -- "Monitor" --> System
     
     Libvirt --> KVM
-    Pacemaker --> Corosync
+    Pacemaker -. "Heartbeat" .-> Corosync
     Corosync --> System
 ```
-
 ## Comparisons: ZEUS vs. Traditional Edge setups
 | Feature | ZEUS Edge Solution | Traditional Manual Setup |
 | :--- | :--- | :--- |
